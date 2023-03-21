@@ -1,0 +1,37 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Episode {
+  id    String   @id @default(cuid())
+  title String
+  date  DateTime @unique
+  votes Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  episodeId String
+
+  userId String
+
+  Contestant   Contestant? @relation(fields: [contestantId], references: [id])
+  contestantId String?
+
+  @@unique([episodeId, userId])
+}
+
+model Contestant {
+  id         String  @id @default(cuid())
+  name       String
+  eliminated Boolean @default(false)
+  votes      Vote[]
+}
