@@ -35,7 +35,7 @@ export default function Voted() {
           </h2>
           <img
             className="mt-4 max-w-sm"
-            src={`/img/${vote?.Contestant?.name}.png`}
+            src={`/img/${vote?.Contestant?.name}.webp`}
             alt=""
           />
         </div>
