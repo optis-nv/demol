@@ -100,7 +100,7 @@ export default function Index() {
               Select a contestant
             </RadioGroup.Label>
 
-            <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+            <div className="mt-4 grid grid-cols-1 gap-y-6 sm:gap-x-4 md:grid-cols-2 lg:grid-cols-3">
               {contestants.map((contestant) => (
                 <RadioGroup.Option
                   key={contestant.id}
@@ -125,10 +125,10 @@ export default function Index() {
                           >
                             <img
                               className={classNames(
-                                "mr-2 inline-block h-14 w-14 rounded-full",
+                                "mr-2 inline-block h-24 w-24 rounded-lg",
                                 disabled ? "opacity-50" : ""
                               )}
-                              src={`/img/${contestant.name}.png`}
+                              src={`/img/${contestant.name}.webp`}
                               alt=""
                             />
                             {contestant.name}
