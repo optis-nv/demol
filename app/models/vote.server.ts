@@ -4,6 +4,7 @@ export const getVoteForEpisode = (episodeId: string, userId: string) => {
   return prisma.vote.findFirst({
     where: {
       episodeId,
+      userId,
     },
     include: {
       Contestant: true,
