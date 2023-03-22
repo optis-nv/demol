@@ -6,6 +6,7 @@ module.exports = {
   future: {
     v2_meta: true,
     v2_routeConvention: true,
+    unstable_tailwind: true,
   },
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
 };
