@@ -49,13 +49,13 @@ export const action = async ({ request }: ActionArgs) => {
       contestantId: contestantId,
       userId: user.sub,
     });
-    throw redirect("/voted");
   } catch (e) {
     return {
       error:
         "Could not cast vote. Maybe you are trying to hack the system? If you are convinced you should be able to cast a vote, please contact Kenneth.",
     };
   }
+  throw redirect("/voted");
 };
 
 export default function Index() {
