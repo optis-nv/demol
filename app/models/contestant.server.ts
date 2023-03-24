@@ -5,3 +5,13 @@ export const getContestants = () => {
     orderBy: [{ eliminated: "asc" }, { name: "asc" }],
   });
 };
+
+export const getContestantsByIds = (ids: string[]) => {
+  return prisma.contestant.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+};

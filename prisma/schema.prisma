@@ -23,8 +23,8 @@ model Vote {
 
   userId String
 
-  Contestant   Contestant? @relation(fields: [contestantId], references: [id])
-  contestantId String?
+  Contestant   Contestant @relation(fields: [contestantId], references: [id])
+  contestantId String
 
   @@unique([episodeId, userId])
 }
