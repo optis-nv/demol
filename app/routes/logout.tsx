@@ -3,14 +3,16 @@ import { redirect } from "@remix-run/node";
 
 import { logout } from "~/session.server";
 
+const client_id = process.env.OAUTH2_CLIENTID || "";
+const logout_uri = process.env.OAUTH2_LOGOUTURL || "";
+const baseUrl = process.env.OAUTH2_BASEURL || "";
+
 export async function action() {
   const searchParams = new URLSearchParams({
-    client_id: "3b2usd3kkqgmg3h1ia7m803iu1",
-    logout_uri: "http://localhost:3000/logout",
+    client_id,
+    logout_uri,
   });
-  return redirect(
-    `https://optis.auth.eu-west-1.amazoncognito.com/logout?${searchParams.toString()}`
-  );
+  return redirect(`${baseUrl}/logout?${searchParams.toString()}`);
 }
 
 export async function loader({ request }: LoaderArgs) {
