@@ -35,3 +35,10 @@ model Contestant {
   eliminated Boolean @default(false)
   votes      Vote[]
 }
+
+model EventLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  type      String
+  data      String
+}

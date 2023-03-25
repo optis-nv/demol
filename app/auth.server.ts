@@ -3,7 +3,7 @@ import { OAuth2Strategy } from "remix-auth-oauth2";
 import invariant from "tiny-invariant";
 import { sessionStorage } from "~/session.server";
 
-type User = {
+export type User = {
   sub: string;
   email: string;
   username: string;

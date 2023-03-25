@@ -24,22 +24,20 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function Voted() {
   const vote = useLoaderData<typeof loader>();
   return (
-    <div className="py-10">
-      <header>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-            Thanks for voting!
-          </h1>
-          <h2 className="text-xl leading-tight tracking-tight text-gray-900">
-            This week you voted for {vote?.Contestant?.name}!
-          </h2>
-          <img
-            className="mt-4 max-w-sm"
-            src={`/img/${vote?.Contestant?.name}.webp`}
-            alt=""
-          />
-        </div>
-      </header>
-    </div>
+    <header>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+          Thanks for voting!
+        </h1>
+        <h2 className="text-xl leading-tight tracking-tight text-gray-900">
+          This week you voted for {vote?.Contestant?.name}!
+        </h2>
+        <img
+          className="mt-4 max-w-sm"
+          src={`/img/${vote?.Contestant?.name}.webp`}
+          alt=""
+        />
+      </div>
+    </header>
   );
 }
