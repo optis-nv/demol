@@ -1,4 +1,7 @@
+import type { Contestant } from "@prisma/client";
+import type { User } from "~/auth.server";
 import { prisma } from "~/db.server";
+import { getUserName } from "~/utils";
 
 export const getVoteForEpisode = (episodeId: string, userId: string) => {
   return prisma.vote.findFirst({
@@ -14,18 +17,26 @@ export const getVoteForEpisode = (episodeId: string, userId: string) => {
 
 export const castVoteForEpisode = ({
   episodeId,
-  userId,
-  contestantId,
+  user,
+  contestant,
 }: {
   episodeId: string;
-  userId: string;
-  contestantId: string;
+  user: User;
+  contestant: Contestant;
 }) => {
-  return prisma.vote.create({
-    data: {
-      episodeId,
-      userId,
-      contestantId,
-    },
-  });
+  return prisma.$transaction([
+    prisma.vote.create({
+      data: {
+        episodeId,
+        userId: user.sub,
+        contestantId: contestant.id,
+      },
+    }),
+    prisma.eventLog.create({
+      data: {
+        type: "VOTE_CAST",
+        data: `${getUserName(user)} stemde deze week op ${contestant.name}.`,
+      },
+    }),
+  ]);
 };

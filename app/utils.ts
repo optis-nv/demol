@@ -1,5 +1,6 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
+import type { User } from "./auth.server";
 
 const DEFAULT_REDIRECT = "/";
 
@@ -44,4 +45,10 @@ export function useMatchesData(
 
 export function classNames(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
+}
+
+export function getUserName(user: User) {
+  const { email } = user;
+  const name = email.split(".")[0];
+  return name.charAt(0).toUpperCase() + name.slice(1);
 }

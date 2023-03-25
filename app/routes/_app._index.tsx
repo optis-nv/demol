@@ -2,7 +2,7 @@ import { RadioGroup } from "@headlessui/react";
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { redirect } from "react-router";
-import { getContestants } from "~/models/contestant.server";
+import { getContestant, getContestants } from "~/models/contestant.server";
 import { getNextEpisode } from "~/models/episode.server";
 import { castVoteForEpisode, getVoteForEpisode } from "~/models/vote.server";
 import { requireUser } from "~/auth.server";
@@ -43,11 +43,15 @@ export const action = async ({ request }: ActionArgs) => {
   if (!contestantId || typeof contestantId !== "string") {
     return { error: "You need to select a contestant to cast a vote." };
   }
+  const contestant = await getContestant(contestantId);
+  if (!contestant) {
+    return { error: "Contestant not found." };
+  }
   try {
     await castVoteForEpisode({
       episodeId: nextEpisode.id,
-      contestantId: contestantId,
-      userId: user.sub,
+      contestant,
+      user,
     });
   } catch (e) {
     return {
@@ -63,7 +67,7 @@ export default function Index() {
     useLoaderData<typeof loader>();
   const { error } = useActionData<typeof action>() || {};
   return (
-    <div className="py-10">
+    <div>
       <header>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
