@@ -25,11 +25,11 @@ export default function App() {
         <Avatar />
       </div>
       <div className="flex flex-col-reverse py-10 md:flex-row">
-        <div className="basis-2/5 p-3">
-          <EventLogs events={events.map(toEvent)} />
-        </div>
         <div className="basis-3/5">
           <Outlet />
+        </div>
+        <div className="basis-2/5 p-3">
+          <EventLogs events={events.map(toEvent)} />
         </div>
       </div>
     </Fragment>
