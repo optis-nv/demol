@@ -14,7 +14,7 @@ const icons = {
 
 export default function EventLogs({ events }: { events: EventLog[] }) {
   return (
-    <div className="flow-root rounded border-2 border-green-100 bg-green-50 p-4">
+    <div className="flow-root max-h-[800px] rounded border-2 border-green-100 bg-green-50 p-4">
       <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900">
         Tijdlijn
       </h2>
