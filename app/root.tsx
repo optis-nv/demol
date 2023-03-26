@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -13,6 +13,8 @@ import tailwindStylesheetUrl from "./styles/tailwind.css";
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
 };
+
+export const meta: V2_MetaFunction = () => [{ title: "De Mol Poll" }];
 
 export default function App() {
   return (

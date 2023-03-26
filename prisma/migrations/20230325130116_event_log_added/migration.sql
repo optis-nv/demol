@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "EventLog" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "type" TEXT NOT NULL,
+    "data" TEXT NOT NULL
+);

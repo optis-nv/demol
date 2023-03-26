@@ -5,3 +5,9 @@ export const getContestants = () => {
     orderBy: [{ eliminated: "asc" }, { name: "asc" }],
   });
 };
+
+export const getContestant = (id: string) => {
+  return prisma.contestant.findUnique({
+    where: { id },
+  });
+};

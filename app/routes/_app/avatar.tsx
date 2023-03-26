@@ -2,20 +2,15 @@ import { Menu, Transition } from "@headlessui/react";
 import { Form } from "@remix-run/react";
 import { Fragment } from "react";
 
-export default function Avatar() {
+export default function Avatar({ initials }: { initials: string }) {
   return (
     <Menu as="div" className="relative mr-3">
       <div>
         <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          <span className="sr-only">Open user menu</span>
-          <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
-            <svg
-              className="h-full w-full text-gray-300"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500">
+            <span className="font-medium leading-none text-white">
+              {initials}
+            </span>
           </span>
         </Menu.Button>
       </div>
@@ -36,7 +31,7 @@ export default function Avatar() {
                   "block w-full px-4 py-2 text-start text-sm text-gray-700"
                 }
               >
-                Logout
+                Afmelden
               </button>
             </Form>
           </Menu.Item>

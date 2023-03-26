@@ -1,8 +1,8 @@
 import { RadioGroup } from "@headlessui/react";
-import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { redirect } from "react-router";
-import { getContestants } from "~/models/contestant.server";
+import { getContestant, getContestants } from "~/models/contestant.server";
 import { getNextEpisode } from "~/models/episode.server";
 import { castVoteForEpisode, getVoteForEpisode } from "~/models/vote.server";
 import { requireUser } from "~/auth.server";
@@ -11,8 +11,6 @@ import {
   ExclamationTriangleIcon,
 } from "@heroicons/react/20/solid";
 import { classNames } from "~/utils";
-
-export const meta: V2_MetaFunction = () => [{ title: "Wie is de mol?" }];
 
 export const loader = async ({ request }: LoaderArgs) => {
   const user = await requireUser(request);
@@ -36,23 +34,27 @@ export const action = async ({ request }: ActionArgs) => {
   const user = await requireUser(request);
   const nextEpisode = await getNextEpisode();
   if (!nextEpisode) {
-    return { error: "No next episode" };
+    return { error: "Aflevering niet gevonden" };
   }
   const formData = await request.formData();
   const contestantId = formData.get("contestant");
   if (!contestantId || typeof contestantId !== "string") {
-    return { error: "You need to select a contestant to cast a vote." };
+    return { error: "Je moet een deelnemer selecteren om te stemmen" };
+  }
+  const contestant = await getContestant(contestantId);
+  if (!contestant) {
+    return { error: "Deelnemer niet gevonden" };
   }
   try {
     await castVoteForEpisode({
       episodeId: nextEpisode.id,
-      contestantId: contestantId,
-      userId: user.sub,
+      contestant,
+      user,
     });
   } catch (e) {
     return {
       error:
-        "Could not cast vote. Maybe you are trying to hack the system? If you are convinced you should be able to cast a vote, please contact Kenneth.",
+        "De stem kon niet worden geregistreerd. Misschien ben je het systeem aan het hacken? Als je zeker bent dat je zou moeten kunnen stemmen, gelieve Kenneth dan te contacteren.",
     };
   }
   throw redirect("/voted");
@@ -62,16 +64,20 @@ export default function Index() {
   const { nextEpisodeDate, nextEpisodeTitle, contestants } =
     useLoaderData<typeof loader>();
   const { error } = useActionData<typeof action>() || {};
+  const deadlineDate = new Date(nextEpisodeDate).toLocaleDateString("nl", {
+    dateStyle: "long",
+  });
+  const deadlineTime = new Date(nextEpisodeDate).toLocaleTimeString("nl", {
+    timeStyle: "short",
+  });
+  const warningMessage = `Je stem voor de volgende aflevering moet uiterlijk ${deadlineDate} om ${deadlineTime} ingediend zijn.`;
+
   return (
-    <div className="py-10">
-      <header>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-            Let's vote for {nextEpisodeTitle}!
-          </h1>
-        </div>
-      </header>
-      <main className="mx-auto max-w-7xl space-y-10 pt-5 sm:px-6 lg:px-8">
+    <div>
+      <main className="space-y-10 pt-5">
+        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+          Breng je stem uit voor {nextEpisodeTitle.toLocaleLowerCase()}
+        </h1>
         <div className="rounded-md border-x-4 border-yellow-400 bg-yellow-50 p-4">
           <div className="flex">
             <div className="flex-shrink-0">
@@ -81,15 +87,9 @@ export default function Index() {
               />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-yellow-800">
-                Attention needed
-              </h3>
+              <h3 className="text-sm font-medium text-yellow-800">Opgelet!</h3>
               <div className="mt-2 text-sm text-yellow-700">
-                <p>
-                  Votes must be submitted before{" "}
-                  {new Date(nextEpisodeDate).toLocaleDateString()} -{" "}
-                  {new Date(nextEpisodeDate).toLocaleTimeString()}
-                </p>
+                <p>{warningMessage}</p>
               </div>
             </div>
           </div>
@@ -97,10 +97,10 @@ export default function Index() {
         <Form action="?index" method="post" className="space-y-2">
           <RadioGroup name="contestant">
             <RadioGroup.Label className="text-base font-semibold leading-6 text-gray-900">
-              Select a contestant
+              Selecteer de mol
             </RadioGroup.Label>
 
-            <div className="mt-4 grid grid-cols-1 gap-y-6 sm:gap-x-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-4 grid grid-cols-1 gap-y-6 sm:gap-x-4 lg:grid-cols-2">
               {contestants.map((contestant) => (
                 <RadioGroup.Option
                   key={contestant.id}
@@ -125,7 +125,7 @@ export default function Index() {
                           >
                             <img
                               className={classNames(
-                                "mr-2 inline-block h-24 w-24 rounded-lg",
+                                "mr-2 inline-block aspect-square w-full max-w-[150px] rounded-lg",
                                 disabled ? "opacity-50" : ""
                               )}
                               src={`/img/${contestant.name}.webp`}
@@ -157,8 +157,8 @@ export default function Index() {
             </div>
           </RadioGroup>
           {error && <p className="text-red-700">{error}</p>}
-          <button className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Cast my vote
+          <button className="w-full rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Breng mijn stem uit
           </button>
         </Form>
       </main>
