@@ -76,7 +76,7 @@ export default function Index() {
     <div>
       <main className="space-y-10 pt-5">
         <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-          Breng je stem uit voor {nextEpisodeTitle}
+          Breng je stem uit voor {nextEpisodeTitle.toLocaleLowerCase()}
         </h1>
         <div className="rounded-md border-x-4 border-yellow-400 bg-yellow-50 p-4">
           <div className="flex">
