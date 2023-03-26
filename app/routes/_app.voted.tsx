@@ -1,11 +1,9 @@
 import { useLoaderData } from "@remix-run/react";
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/server-runtime";
+import type { LoaderArgs } from "@remix-run/server-runtime";
 import { redirect } from "react-router";
 import { getNextEpisode } from "~/models/episode.server";
 import { getVoteForEpisode } from "~/models/vote.server";
 import { requireUser } from "~/auth.server";
-
-export const meta: V2_MetaFunction = () => [{ title: "Thanks for voting!" }];
 
 export const loader = async ({ request }: LoaderArgs) => {
   const user = await requireUser(request);
@@ -24,20 +22,19 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function Voted() {
   const vote = useLoaderData<typeof loader>();
   return (
-    <header>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-          Thanks for voting!
-        </h1>
-        <h2 className="text-xl leading-tight tracking-tight text-gray-900">
-          This week you voted for {vote?.Contestant?.name}!
-        </h2>
-        <img
-          className="mt-4 max-w-sm"
-          src={`/img/${vote?.Contestant?.name}.webp`}
-          alt=""
-        />
-      </div>
-    </header>
+    <main>
+      <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+        Dus jij denkt dat {vote?.Contestant?.name} de mol is?
+      </h1>
+      <h2 className="text-xl leading-tight tracking-tight text-gray-900">
+        Bedankt voor je stem! Nog even afwachten voor we weten of je gelijk
+        hebt.
+      </h2>
+      <img
+        className="mt-4 max-w-sm"
+        src={`/img/${vote?.Contestant?.name}.webp`}
+        alt={vote?.Contestant?.name}
+      />
+    </main>
   );
 }
