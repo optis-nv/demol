@@ -10,6 +10,8 @@ export const sessionStorage = createCookieSessionStorage({
     path: "/",
     sameSite: "lax",
     secrets: [process.env.SESSION_SECRET],
+    // todo
+    // expires: 30 * 24 * 60 * 60,
     secure: process.env.NODE_ENV === "production",
   },
 });

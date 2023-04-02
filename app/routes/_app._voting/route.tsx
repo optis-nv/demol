@@ -11,7 +11,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   return { events };
 };
 
-const toEvent = (event: SerializeFrom<EventLog>) => ({
+export const toEvent = (event: SerializeFrom<EventLog>) => ({
   ...event,
   createdAt: new Date(event.createdAt),
 });
