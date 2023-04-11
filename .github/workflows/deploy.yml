@@ -94,7 +94,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npm run e2e
       env:
         DATABASE_URL: ${{vars.DATABASE_URL}}
         SESSION_SECRET: ${{secrets.SESSION_SECRET}}
