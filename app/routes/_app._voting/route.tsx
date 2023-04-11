@@ -14,6 +14,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 export const toEvent = (event: SerializeFrom<EventLog>) => ({
   ...event,
   createdAt: new Date(event.createdAt),
+  publishAt: new Date(event.publishAt),
 });
 
 export default function App() {

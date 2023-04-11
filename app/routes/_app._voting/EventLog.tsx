@@ -21,8 +21,8 @@ export default function EventLogs({ events }: { events: EventLog[] }) {
       <ul className="mt-4 -mb-8">
         {events.map((event, eventIdx) => {
           const EventIcon = icons[event.type as EventTypes];
-          const createdAt = DateTime.fromJSDate(event.createdAt);
-          const secondsCreatedAgo = Math.abs(createdAt.diffNow().as("seconds"));
+          const timeStamp = DateTime.fromJSDate(event.publishAt);
+          const secondsAgo = Math.abs(timeStamp.diffNow().as("seconds"));
           return (
             <li key={event.id}>
               <div className="relative pb-8">
@@ -45,11 +45,11 @@ export default function EventLogs({ events }: { events: EventLog[] }) {
                   <div className="flex min-w-0 flex-1 flex-col pt-1.5">
                     <p className="text-sm text-gray-800">{event.data} </p>
                     <div className="whitespace-nowrap text-sm text-gray-500">
-                      <time dateTime={event.createdAt.toLocaleDateString()}>
-                        {secondsCreatedAgo < 60
+                      <time dateTime={event.publishAt.toLocaleDateString()}>
+                        {secondsAgo < 60
                           ? "Enkele seconden geleden"
-                          : createdAt.setLocale("nl").toRelative({
-                              unit: ["days", "hours", "minutes"],
+                          : timeStamp.setLocale("nl").toRelative({
+                              unit: ["weeks", "days", "hours", "minutes"],
                             })}
                       </time>
                     </div>
