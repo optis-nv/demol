@@ -18,6 +18,7 @@ const {
   OAUTH2_CLIENTSECRET,
   OAUTH2_CALLBACKURL,
   OAUTH2_USERINFOURL,
+  ADMIN_ID,
 } = process.env;
 
 invariant(OAUTH2_AUTHORIZATIONURL, "OAUTH2_AUTHORIZATIONURL missing");
@@ -26,6 +27,7 @@ invariant(OAUTH2_CLIENTID, "OAUTH2_CLIENTID missing");
 invariant(OAUTH2_CLIENTSECRET, "OAUTH2_CLIENTSECRET missing");
 invariant(OAUTH2_CALLBACKURL, "OAUTH2_CALLBACKURL missing");
 invariant(OAUTH2_USERINFOURL, "OAUTH2_USERINFOURL missing");
+invariant(ADMIN_ID, "ADMIN_ID missing");
 
 authenticator.use(
   new OAuth2Strategy(
@@ -59,7 +61,6 @@ export async function requireUser(request: Request) {
 
 export async function requireAdmin(request: Request) {
   const user = await requireUser(request);
-  if (user.sub !== "e4d9bdef-8b48-4562-b227-ca56100a9e3c")
-    throw new Error("Not admin");
+  if (user.sub !== ADMIN_ID) throw new Error("Not admin");
   return user;
 }

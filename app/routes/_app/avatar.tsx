@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Form } from "@remix-run/react";
 import { Fragment } from "react";
+import { classNames } from "~/utils";
 
 export default function Avatar({ initials }: { initials: string }) {
   return (
@@ -23,19 +24,22 @@ export default function Avatar({ initials }: { initials: string }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <Menu.Item>
-            <Form action="/logout" method="post">
-              <button
-                className={
-                  "block w-full px-4 py-2 text-start text-sm text-gray-700"
-                }
-              >
-                Afmelden
-              </button>
-            </Form>
-          </Menu.Item>
-        </Menu.Items>
+        <Form action="/logout" method="post">
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  className={classNames(
+                    "block w-full px-4 py-2 text-start text-sm text-gray-700",
+                    active ? "bg-green-600 text-white" : ""
+                  )}
+                >
+                  Afmelden
+                </button>
+              )}
+            </Menu.Item>
+          </Menu.Items>
+        </Form>
       </Transition>
     </Menu>
   );

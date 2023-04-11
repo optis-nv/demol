@@ -29,11 +29,13 @@ async function seed() {
         type: "ANNOUNCEMENT",
         data: "De show is begonnen! We gaan op zoek naar de mol!",
         createdAt: new Date(1679252400000),
+        publishAt: new Date(1679252400000),
       },
       {
         type: "ANNOUNCEMENT",
         data: "Ai, de eerste BV die meedoet aan de mol is ook meteen al de eerste die het spel moet verlaten. Volgende keer beter, Matteo!",
         createdAt: new Date(1679258100301),
+        publishAt: new Date(1679258100301),
       },
     ].map((data) => prisma.eventLog.create({ data }))
   );

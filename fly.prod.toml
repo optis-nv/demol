@@ -21,6 +21,7 @@ destination = "/data"
   OAUTH2_CLIENTID = "6cdhg4buar22jvs0gsjkspa741"
   OAUTH2_CALLBACKURL = "https://demol-3203.fly.dev/auth/callback"
   OAUTH2_LOGOUTURL = "https://demol-3203.fly.dev/logout"
+  ADMIN_ID = "e4d9bdef-8b48-4562-b227-ca56100a9e3c"
 
 [[services]]
 internal_port = 8_080
