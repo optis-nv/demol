@@ -96,18 +96,18 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        DATABASE_URL: ${{env.DATABASE_URL}}
+        DATABASE_URL: ${{vars.DATABASE_URL}}
         SESSION_SECRET: ${{secrets.SESSION_SECRET}}
-        OAUTH2_BASEURL: ${{env.OAUTH2_BASEURL}}
-        OAUTH2_AUTHORIZATIONURL: ${{env.OAUTH2_AUTHORIZATIONURL}}
-        OAUTH2_TOKENURL: ${{env.OAUTH2_TOKENURL}}
-        OAUTH2_USERINFOURL: ${{env.OAUTH2_USERINFOURL}}
-        OAUTH2_CLIENTID: ${{env.OAUTH2_CLIENTID}}
+        OAUTH2_BASEURL: ${{vars.OAUTH2_BASEURL}}
+        OAUTH2_AUTHORIZATIONURL: ${{vars.OAUTH2_AUTHORIZATIONURL}}
+        OAUTH2_TOKENURL: ${{vars.OAUTH2_TOKENURL}}
+        OAUTH2_USERINFOURL: ${{vars.OAUTH2_USERINFOURL}}
+        OAUTH2_CLIENTID: ${{vars.OAUTH2_CLIENTID}}
         OAUTH2_CLIENTSECRET: ${{secrets.OAUTH2_CLIENTSECRET}}
-        OAUTH2_CALLBACKURL: ${{env.OAUTH2_CALLBACKURL}}
-        OAUTH2_LOGOUTURL: ${{env.OAUTH2_LOGOUTURL}}
-        ADMIN_ID: ${{env.ADMIN_ID}}
-        ADMIN_EMAIL: ${{env.ADMIN_EMAIL}}
+        OAUTH2_CALLBACKURL: ${{vars.OAUTH2_CALLBACKURL}}
+        OAUTH2_LOGOUTURL: ${{vars.OAUTH2_LOGOUTURL}}
+        ADMIN_ID: ${{vars.ADMIN_ID}}
+        ADMIN_EMAIL: ${{vars.ADMIN_EMAIL}}
         ADMIN_PASSWORD: ${{secrets.ADMIN_PASSWORD}}
     - uses: actions/upload-artifact@v3
       if: always()
