@@ -17,7 +17,7 @@ async function seed() {
   const contestants = await Promise.all(
     contestantsData.map((contestant, idx) =>
       prisma.contestant.create({
-        data: { name: contestant, eliminated: idx > 3 ? true : false },
+        data: { name: contestant, eliminated: idx > 2 ? true : false },
       })
     )
   );
