@@ -45,7 +45,7 @@ export default function Voted() {
         <h3 className="text-center text-xl">
           Hoe hebben we voorlopig gestemd op de resterende kandidaten?
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-center">
+        <div className="mt-3 grid grid-cols-3 gap-4 divide-x-2 text-center">
           {voteCounts.map(({ contestant, votes }) => {
             return (
               <div key={contestant}>
