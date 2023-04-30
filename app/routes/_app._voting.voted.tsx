@@ -45,10 +45,10 @@ export default function Voted() {
         <h3 className="text-center text-xl">
           Hoe hebben we voorlopig gestemd op de resterende kandidaten?
         </h3>
-        <div className="mt-3 grid grid-cols-3 gap-4 divide-x-2 text-center">
+        <div className="divide-x-px mt-3 grid grid-cols-3 gap-px bg-gray-200 text-center">
           {voteCounts.map(({ contestant, votes }) => {
             return (
-              <div key={contestant}>
+              <div key={contestant} className="bg-white">
                 <h4 className="text-lg font-medium underline">{contestant}</h4>
                 <ul>
                   {votes.map((vote) => (
