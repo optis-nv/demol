@@ -56,3 +56,10 @@ export async function requireUser(request: Request) {
 
   throw await authenticator.logout(request, { redirectTo: "/login" });
 }
+
+export async function requireAdmin(request: Request) {
+  const user = await requireUser(request);
+  if (user.sub !== "e4d9bdef-8b48-4562-b227-ca56100a9e3c")
+    throw new Error("Not admin");
+  return user;
+}
