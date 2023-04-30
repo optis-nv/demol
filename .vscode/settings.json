@@ -2,5 +2,6 @@
   "yaml.schemas": {
     "file:///Users/kennethvandenberghe/.vscode/extensions/atlassian.atlascode-3.0.0/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
     "https://json.schemastore.org/github-workflow.json": "file:///Users/kennethvandenberghe/projects/demol/.github/workflows/deploy.yml"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
