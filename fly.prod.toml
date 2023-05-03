@@ -1,59 +1,61 @@
+# fly.toml app configuration file generated for demol-3203 on 2023-05-03T11:48:58+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = "demol-3203"
+primary_region = "ams"
 kill_signal = "SIGINT"
-kill_timeout = 5
-processes = [ ]
+kill_timeout = "5s"
 
 [experimental]
-allowed_public_ports = [ ]
-auto_rollback = true
-cmd = "start.sh"
-entrypoint = "sh"
-
-[mounts]
-source = "data"
-destination = "/data"
+  cmd = ["start.sh"]
+  entrypoint = ["sh"]
+  auto_rollback = true
 
 [env]
-  OAUTH2_BASEURL = "https://optis.auth.eu-west-1.amazoncognito.com"
   OAUTH2_AUTHORIZATIONURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/authorize"
+  OAUTH2_BASEURL = "https://optis.auth.eu-west-1.amazoncognito.com"
+  OAUTH2_CALLBACKURL = "https://demol-3203.fly.dev/auth/callback"
+  OAUTH2_CLIENTID = "6cdhg4buar22jvs0gsjkspa741"
+  OAUTH2_LOGOUTURL = "https://demol-3203.fly.dev/logout"
   OAUTH2_TOKENURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/token"
   OAUTH2_USERINFOURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/userInfo"
-  OAUTH2_CLIENTID = "6cdhg4buar22jvs0gsjkspa741"
-  OAUTH2_CALLBACKURL = "https://demol-3203.fly.dev/auth/callback"
-  OAUTH2_LOGOUTURL = "https://demol-3203.fly.dev/logout"
+
+[[mounts]]
+  source = "data_machines"
+  destination = "/data"
+  processes = ["app"]
 
 [[services]]
-internal_port = 8_080
-processes = [ "app" ]
-protocol = "tcp"
-script_checks = [ ]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
 
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
   [services.concurrency]
-  hard_limit = 25
-  soft_limit = 20
-  type = "connections"
-
-  [[services.ports]]
-  handlers = [ "http" ]
-  port = 80
-  force_https = true
-
-  [[services.ports]]
-  handlers = [ "tls", "http" ]
-  port = 443
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
 
   [[services.tcp_checks]]
-  grace_period = "1s"
-  interval = "15s"
-  restart_limit = 0
-  timeout = "2s"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"
+    restart_limit = 0
 
   [[services.http_checks]]
-  interval = "10s"
-  grace_period = "5s"
-  method = "get"
-  path = "/healthcheck"
-  protocol = "http"
-  timeout = "2s"
-  tls_skip_verify = false
-  headers = { }
+    interval = "10s"
+    timeout = "2s"
+    grace_period = "5s"
+    restart_limit = 0
+    method = "get"
+    path = "/healthcheck"
+    protocol = "http"
