@@ -2,15 +2,18 @@ import { useLoaderData } from "@remix-run/react";
 import type { LoaderArgs } from "@remix-run/server-runtime";
 import { requireUser } from "~/auth.server";
 import { voteCountsRemainingContestants } from "~/models/vote.server";
+import { getUsers } from "~/models/users.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
   await requireUser(request);
   const voteCounts = await voteCountsRemainingContestants();
-  return { voteCounts };
+  const users = await getUsers();
+  return { voteCounts, users };
 };
 
 export default function () {
-  const { voteCounts } = useLoaderData<typeof loader>();
+  const { voteCounts, users } = useLoaderData<typeof loader>();
+
   return (
     <div>
       <h1 className="text-3xl font-semibold">
@@ -32,6 +35,16 @@ export default function () {
             </div>
           );
         })}
+      </div>
+      <h3 className="mt-6 text-xl">Deelnemers van de mol pol:</h3>
+      <div className="mt-2">
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              {user.userName} - {user.count}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
