@@ -128,7 +128,7 @@ export default function Index() {
                                 "mr-2 inline-block aspect-square w-full max-w-[150px] rounded-lg",
                                 disabled ? "opacity-50" : ""
                               )}
-                              src={`/img/${contestant.name}.webp`}
+                              src={`/img/${contestant.name}.jpeg`}
                               alt=""
                             />
                             {contestant.name}
@@ -157,7 +157,7 @@ export default function Index() {
             </div>
           </RadioGroup>
           {error && <p className="text-red-700">{error}</p>}
-          <button className="w-full rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <button className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Breng mijn stem uit
           </button>
         </Form>

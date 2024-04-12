@@ -37,7 +37,7 @@ export default function Voted() {
         </h2>
         <img
           className="mt-4 max-w-sm"
-          src={`/img/${vote?.Contestant?.name}.webp`}
+          src={`/img/${vote?.Contestant?.name}.jpeg`}
           alt={vote?.Contestant?.name}
         />
       </main>
@@ -45,7 +45,7 @@ export default function Voted() {
         <h3 className="text-center text-xl">
           Hoe hebben we voorlopig gestemd op de resterende kandidaten?
         </h3>
-        <div className="divide-x-px mt-3 grid grid-cols-3 gap-px bg-gray-200 text-center">
+        <div className="divide-x-px mt-3 grid grid-cols-3 gap-px divide-x divide-y text-center">
           {voteCounts.map(({ contestant, votes }) => {
             return (
               <div key={contestant} className="bg-white">

@@ -17,7 +17,7 @@ async function seed() {
   const contestants = await Promise.all(
     contestantsData.map((contestant, idx) =>
       prisma.contestant.create({
-        data: { name: contestant, eliminated: idx > 2 ? true : false },
+        data: { name: contestant, eliminated: false },
       })
     )
   );
@@ -32,44 +32,6 @@ async function seed() {
         data: { date: episode, title: `Episode ${idx + 1}` },
       })
     )
-  );
-
-  for (let i = 0; i < 6; i++) {
-    await Promise.all(
-      new Array(10).fill(null).map((_, index) => {
-        return prisma.vote.create({
-          data: {
-            userId: users[index].id,
-            Contestant: {
-              connect: {
-                id: getRandomContestant().id,
-              },
-            },
-            episode: {
-              connect: {
-                id: episodes[i].id,
-              },
-            },
-          },
-        });
-      })
-    );
-  }
-
-  await prisma.eventLog.deleteMany();
-  await Promise.all(
-    [
-      {
-        type: "ANNOUNCEMENT",
-        data: "De show is begonnen! We gaan op zoek naar de mol!",
-        createdAt: new Date(1679252400000),
-      },
-      {
-        type: "ANNOUNCEMENT",
-        data: "Ai, de eerste BV die meedoet aan de mol is ook meteen al de eerste die het spel moet verlaten. Volgende keer beter, Matteo!",
-        createdAt: new Date(1679258100301),
-      },
-    ].map((data) => prisma.eventLog.create({ data }))
   );
 
   console.log(`Database has been seeded. 🌱`);
