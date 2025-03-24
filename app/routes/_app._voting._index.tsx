@@ -131,7 +131,7 @@ export default function Index() {
                               src={`/img/${contestant.name}.jpg`}
                               alt=""
                             />
-                            <span className="text-md pt-4 text-center font-medium text-gray-900">
+                            <span className="text-md pt-4 text-center font-medium capitalize text-gray-900">
                               {contestant.name}
                             </span>
                           </RadioGroup.Label>
