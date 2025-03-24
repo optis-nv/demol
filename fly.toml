@@ -1,59 +1,31 @@
-app = "demol-3203"
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = [ ]
+# fly.toml app configuration file generated for demol-snowy-fire-686 on 2025-03-21T16:38:20+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-[experimental]
-allowed_public_ports = [ ]
-auto_rollback = true
-cmd = "start.sh"
-entrypoint = "sh"
+app = 'demol-snowy-fire-686'
+primary_region = 'ams'
 
-[mounts]
-source = "data"
-destination = "/data"
+[build]
 
 [env]
   OAUTH2_BASEURL = "https://optis.auth.eu-west-1.amazoncognito.com"
   OAUTH2_AUTHORIZATIONURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/authorize"
   OAUTH2_TOKENURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/token"
   OAUTH2_USERINFOURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/userInfo"
-  OAUTH2_CLIENTID = "3b2usd3kkqgmg3h1ia7m803iu1"
-  OAUTH2_CALLBACKURL = "https://demol-3203-staging.fly.dev/auth/callback"
-  OAUTH2_LOGOUTURL = "https://demol-3203-staging.fly.dev/logout"
+  OAUTH2_CLIENTID = "6cdhg4buar22jvs0gsjkspa741"
+  OAUTH2_CALLBACKURL = "https://demol-snowy-fire-686.fly.dev/auth/callback"
+  OAUTH2_LOGOUTURL = "https://demol-snowy-fire-686.fly.dev/logout"
 
-[[services]]
-internal_port = 8_080
-processes = [ "app" ]
-protocol = "tcp"
-script_checks = [ ]
-
-  [services.concurrency]
-  hard_limit = 25
-  soft_limit = 20
-  type = "connections"
-
-  [[services.ports]]
-  handlers = [ "http" ]
-  port = 80
+[http_service]
+  internal_port = 3000
   force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
-  [[services.ports]]
-  handlers = [ "tls", "http" ]
-  port = 443
-
-  [[services.tcp_checks]]
-  grace_period = "1s"
-  interval = "15s"
-  restart_limit = 0
-  timeout = "2s"
-
-  [[services.http_checks]]
-  interval = "10s"
-  grace_period = "5s"
-  method = "get"
-  path = "/healthcheck"
-  protocol = "http"
-  timeout = "2s"
-  tls_skip_verify = false
-  headers = { }
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

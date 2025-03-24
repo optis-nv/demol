@@ -121,27 +121,22 @@ export default function Index() {
                         <span className="flex flex-col">
                           <RadioGroup.Label
                             as="span"
-                            className="block text-sm font-medium text-gray-900 "
+                            className="flex flex-col text-sm font-medium text-gray-900"
                           >
                             <img
                               className={classNames(
-                                "mr-2 inline-block aspect-square w-full max-w-[150px] rounded-lg",
+                                "mr-2 w-full rounded-lg object-cover",
                                 disabled ? "opacity-50" : ""
                               )}
-                              src={`/img/${contestant.name}.webp`}
+                              src={`/img/${contestant.name}.jpg`}
                               alt=""
                             />
-                            {contestant.name}
+                            <span className="text-md pt-4 text-center font-medium text-gray-900">
+                              {contestant.name}
+                            </span>
                           </RadioGroup.Label>
                         </span>
                       </span>
-                      <CheckCircleIcon
-                        className={classNames(
-                          !checked ? "invisible" : "",
-                          "h-5 w-5 text-indigo-600"
-                        )}
-                        aria-hidden="true"
-                      />
                       <span
                         className={classNames(
                           active ? "border" : "border-2",
@@ -157,7 +152,7 @@ export default function Index() {
             </div>
           </RadioGroup>
           {error && <p className="text-red-700">{error}</p>}
-          <button className="w-full rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <button className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Breng mijn stem uit
           </button>
         </Form>

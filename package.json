@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@flydotio/dockerfile": "^0.7.8",
     "@remix-run/dev": "^1.14.3",
     "@remix-run/eslint-config": "^1.14.3",
     "@testing-library/dom": "^8.20.0",
