@@ -14,8 +14,8 @@ primary_region = 'ams'
   OAUTH2_TOKENURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/token"
   OAUTH2_USERINFOURL = "https://optis.auth.eu-west-1.amazoncognito.com/oauth2/userInfo"
   OAUTH2_CLIENTID = "6cdhg4buar22jvs0gsjkspa741"
-  OAUTH2_CALLBACKURL = "https://demol-snowy-fire-686.fly.dev/auth/callback"
-  OAUTH2_LOGOUTURL = "https://demol-snowy-fire-686.fly.dev/logout"
+  OAUTH2_CALLBACKURL = "https://demol.optis.cloud/auth/callback"
+  OAUTH2_LOGOUTURL = "https://demol.optis.cloud/logout"
 
 [http_service]
   internal_port = 3000
