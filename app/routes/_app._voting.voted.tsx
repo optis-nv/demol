@@ -31,7 +31,11 @@ export default function Voted() {
   const { vote, voteCounts, events } = useLoaderData<typeof loader>();
   return (
     <div className="w-full">
-      <img src="/img/groep.png" alt="groep" className="mx-auto w-1/2" />
+      <img
+        src="/img/groep.png"
+        alt="groep"
+        className="mx-auto w-full md:w-1/2"
+      />
       <div className="flex flex-col justify-between gap-2 md:flex-row">
         <div className="flex flex-col">
           <main>
