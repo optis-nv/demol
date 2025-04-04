@@ -36,7 +36,7 @@ export default function Voted() {
         alt="groep"
         className="mx-auto w-full md:w-1/2"
       />
-      <div className="flex flex-col justify-between gap-2 md:flex-row">
+      <div className="mt-3 flex flex-col justify-between gap-2 md:flex-row">
         <div className="flex flex-col">
           <main>
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
